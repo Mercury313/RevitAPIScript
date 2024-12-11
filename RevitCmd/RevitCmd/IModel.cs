@@ -11,7 +11,7 @@ namespace RevitCmd
         public XYZ ToXYZ(ForgeTypeId unitTypeId = null) => new XYZ(
             UnitUtils.ConvertToInternalUnits(X, unitTypeId ?? UnitTypeId.Millimeters),
             UnitUtils.ConvertToInternalUnits(Y, unitTypeId ?? UnitTypeId.Millimeters),
-            UnitUtils.ConvertToInternalUnits(Z, unitTypeId ?? UnitTypeId.Millimeters)
+            UnitUtils.ConvertToInternalUnits(Z, unitTypeId ?? UnitTypeId.Millimeters));
     }
     public interface IDimension : IXYZ
     {

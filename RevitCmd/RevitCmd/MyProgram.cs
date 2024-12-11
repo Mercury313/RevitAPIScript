@@ -23,9 +23,12 @@ namespace RevitCmd
             {
                 var pos = element.Position.ToXYZ();
                 var dim = element.Dimension.ToXYZ();
-                var line = Line.CreateBound(pos, pos + new XYZ(dim.X, dim.Y / 2, 0));
+                var line = Line.CreateBound(pos,
+                    pos + new XYZ(dim.X, dim.Y / 2, 0));
 
-                var wall = Wall.Create(document, line, type.Id, level.Id, dim.Z, 0, false, false);
+                var wall = Wall.Create(document, line,
+                    type.Id, level.Id, dim.Z,
+                    0, false, false);
             }
         }
     }
