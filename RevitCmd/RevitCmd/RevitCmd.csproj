@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.3.0" />
+    <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.3.0" />
+  </ItemGroup>
+
+</Project>
