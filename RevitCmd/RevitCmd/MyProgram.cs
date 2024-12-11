@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.DB;
+using Newtonsoft.Json;
 
 namespace RevitCmd
 {
@@ -9,10 +10,7 @@ namespace RevitCmd
         {
             var json = System.IO.File.ReadAllText(_docPath + "/model.json");
 
-            var dim = new Dimension { X = 10000, Y = 200, Z = 3000 }.ToXYZ();
-            var pos = new XYZ(0, 0, 0);
-
-            var line = Line.CreateBound(pos, pos + new XYZ(dim.X, dim.Y / 2, 0));
+            var model = JsonConvert.DeserializeObject<IModel>(json);
 
             var type = new FilteredElementCollector(document)
                 .OfClass(typeof(WallType))
@@ -21,7 +19,14 @@ namespace RevitCmd
                 .OfClass(typeof(Level))
                 .First();
 
-            Wall.Create(document, line, type.Id, level.Id, dim.Z, 0, false, false);
+            foreach (var element in model.Elements)
+            {
+                var pos = element.Position.ToXYZ();
+                var dim = element.Dimension.ToXYZ();
+                var line = Line.CreateBound(pos, pos + new XYZ(dim.X, dim.Y / 2, 0));
+
+                var wall = Wall.Create(document, line, type.Id, level.Id, dim.Z, 0, false, false);
+            }
         }
     }
 }
