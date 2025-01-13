@@ -21,12 +21,55 @@ namespace RevitCmd
         }
         public static IEnumerable<T> QuOfType<T>(this Document document)
             where T : Element
-        {
-            IEnumerable<T> collector = document
-                .FilterOf<T>()
+            => document.FilterOf<T>()
                 .Cast<T>();
 
-            return collector;
+        public static Transaction NewTransaction(this Document document, string name)
+            => new Transaction(document, name ?? "Transaction");
+        public static void Transaction(this Document document, Action action, string? txnName = null)
+        {
+            using (Transaction txn = document.NewTransaction(txnName ?? action.Method.Name))
+            {
+                txn.Start();
+                try
+                {
+                    action?.Invoke();
+                    txn.Commit();
+                }
+                catch
+                {
+                    if (txn.HasStarted())
+                    {
+                        txn.RollBack();
+                    }
+
+                    throw;
+                }
+            }
+        }
+
+        public static void Transaction(this Document document, Action<Document> action, string? txnName = null)
+        {
+            using (var txn = document.NewTransaction(txnName ?? action.Method.Name))
+            {
+                txn.Start();
+                try
+                {
+                    action?.Invoke(document);
+
+                    txn.Commit();
+
+                }
+                catch
+                {
+                    if (txn.HasStarted())
+                    {
+                        txn.RollBack();
+                    }
+
+                    throw;
+                }
+            }
         }
     }
 }

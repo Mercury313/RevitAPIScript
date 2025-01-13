@@ -14,7 +14,7 @@ namespace RevitCmd
 
             try
             {
-                MyTransaction(uiDoc.Document);
+                uiDoc.Document.Transaction(RunProgram);
             }
             catch (Exception e)
             {
@@ -23,29 +23,9 @@ namespace RevitCmd
 
             return Result.Succeeded;
         }
-
-        private void MyTransaction(Document document)
+        public static void RunProgram(Document document)
         {
-            using (var txn = new Transaction(document, "MyTxn"))
-            {
-                txn.Start();
-
-                try
-                {
-                    MyProgram.DoStuff(document);
-
-                    txn.Commit();
-                }
-                catch
-                {
-                    if (txn.HasStarted())
-                    {
-                        txn.RollBack();
-                    }
-
-                    throw;
-                }
-            }
+            MyProgram.DoStuff(document);
         }
     }
 }
