@@ -13,24 +13,24 @@ namespace RevitCmd
             UnitUtils.ConvertToInternalUnits(Y, unitTypeId ?? UnitTypeId.Millimeters),
             UnitUtils.ConvertToInternalUnits(Z, unitTypeId ?? UnitTypeId.Millimeters));
     }
-    public interface IDimension : IXYZ
+    public interface IShape : IXYZ
     {
     }
-    public interface IPosition : IXYZ
+    public interface IVector : IXYZ
     {
     }
-
-    public interface IDirection : IXYZ
+    public interface IDrawable
     {
+        public void Draw(Document document);
     }
-    public interface IElement
+    public interface IElement : IDrawable
     {
-        IPosition Position { get; set; }
-        IDirection Direction { get; set; }
-        IDimension Dimension { get; set; }
+        IVector Position { get; }
+        IVector Direction { get; }
+        IShape Shape { get; }
     }
-    public interface IModel
+    public interface IModel : IDrawable
     {
-        List<IElement> Elements { get; }
+        public IEnumerable<IElement> Elements { get; }
     }
 }
