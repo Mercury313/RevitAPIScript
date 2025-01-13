@@ -1,5 +1,4 @@
 ﻿using Autodesk.Revit.DB;
-using Newtonsoft.Json;
 
 namespace RevitCmd
 {
@@ -8,28 +7,21 @@ namespace RevitCmd
         static string _docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         public static void DoStuff(Document document)
         {
-            var json = System.IO.File.ReadAllText(_docPath + "/model.json");
+            //var json = System.IO.File.ReadAllText(_docPath + "/model.json");
 
-            var model = JsonConvert.DeserializeObject<IModel>(json);
+            //var model = JsonConvert.DeserializeObject<IModel>(json);
 
-            var type = new FilteredElementCollector(document)
-                .OfClass(typeof(WallType))
-                .First();
-            var level = new FilteredElementCollector(document)
-                .OfClass(typeof(Level))
-                .First();
-
-            foreach (var element in model.Elements)
+            var model = new Model(new List<IElement>
             {
-                var pos = element.Position.ToXYZ();
-                var dim = element.Dimension.ToXYZ();
-                var line = Line.CreateBound(pos,
-                    pos + new XYZ(dim.X, dim.Y / 2, 0));
+                //todo
+                new WallElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = 1, Y =0, Z= 0 }, new Dimension{ X= 10000, Y = 500, Z = 3000 }),
+                new RoofElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = 1, Y =0, Z= 0 }, new Dimension{ X= 10000, Y = 5000, Z = 2000 })
+            });
 
-                var wall = Wall.Create(document, line,
-                    type.Id, level.Id, dim.Z,
-                    0, false, false);
-            }
+            model.Draw(document);
+
+            //todo: attach walls to roof!
+
         }
     }
 }
