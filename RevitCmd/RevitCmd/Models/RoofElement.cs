@@ -15,9 +15,25 @@ namespace RevitCmd
             TaskDialog.Show("Roof", "drawing roof element");
 
             var type = document.QuOfType<RoofType>()
-                .First();
+                .FirstOrDefault(_ => _.Name == "Ziegeldach 360");
+
             var level = document.QuOfType<Level>()
-                .First();
+                .FirstOrDefault(_ => _.Name == "Ebene 1");
+
+            TaskDialog.Show("Attaching Walls", "Test");
+            var walls = document.QuOfType<Wall>();
+
+            foreach (var wall in walls)
+            {
+                try
+                {
+                    wall.AddAttachment(level.Id, AttachmentLocation.Top);
+                }
+                catch
+                {
+                    TaskDialog.Show("Roof", "drawing roof element");
+                }
+            }
 
 
             var profile = new CurveArray();
