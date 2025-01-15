@@ -21,6 +21,7 @@ namespace RevitCmd
             model.Draw(document);
 
             //todo: attach walls to roof!
+            // Done!
 
         }
     }
