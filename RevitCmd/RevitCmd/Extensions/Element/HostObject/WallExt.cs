@@ -33,7 +33,7 @@ namespace RevitCmd
             return wall;
         }
 
-        public static Wall AddAttachment(this Wall wall, Wall walltop, AttachmentLocation AttachmentLocation = AttachmentLocation.Base)
+        public static Wall AddAttachment(this Wall wall, Wall walltop, AttachmentLocation AttachmentLocation = AttachmentLocation.Top)
         {
             wall.AddAttachment(walltop.Id, AttachmentLocation);
 
