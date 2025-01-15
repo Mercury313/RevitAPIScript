@@ -18,23 +18,7 @@ namespace RevitCmd
                 .FirstOrDefault(_ => _.Name == "Ziegeldach 360");
 
             var level = document.QuOfType<Level>()
-                .FirstOrDefault(_ => _.Name == "Ebene 1");
-
-            TaskDialog.Show("Attaching Walls", "Test");
-            var walls = document.QuOfType<Wall>();
-
-            foreach (var wall in walls)
-            {
-                try
-                {
-                    wall.AddAttachment(level.Id, AttachmentLocation.Top);
-                }
-                catch
-                {
-                    TaskDialog.Show("Roof", "drawing roof element");
-                }
-            }
-
+                .FirstOrDefault(_ => _.Name == "Ebene 2");
 
             var profile = new CurveArray();
             //todo
@@ -68,6 +52,22 @@ namespace RevitCmd
             }
 
             roof.EaveCuts = EaveCutterType.TwoCutSquare;
+
+
+            TaskDialog.Show("Attaching Walls", "Test");
+            var walls = document.QuOfType<Wall>();
+
+            foreach (var wall in walls)
+            {
+                try
+                {
+                    wall.AddAttachment(roof);
+                }
+                catch
+                {
+                    TaskDialog.Show("Message", "Failed to attach walls!");
+                }
+            }
         }
     }
 }
