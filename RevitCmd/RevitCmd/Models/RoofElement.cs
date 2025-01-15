@@ -15,10 +15,10 @@ namespace RevitCmd
             TaskDialog.Show("Roof", "drawing roof element");
 
             var type = document.QuOfType<RoofType>()
-                .First();
-            var level = document.QuOfType<Level>()
-                .First();
+                .FirstOrDefault(_ => _.Name == "Ziegeldach 360");
 
+            var level = document.QuOfType<Level>()
+                .FirstOrDefault(_ => _.Name == "Ebene 2");
 
             var profile = new CurveArray();
             //todo
@@ -52,6 +52,22 @@ namespace RevitCmd
             }
 
             roof.EaveCuts = EaveCutterType.TwoCutSquare;
+
+
+            TaskDialog.Show("Attaching Walls", "Test");
+            var walls = document.QuOfType<Wall>();
+
+            foreach (var wall in walls)
+            {
+                try
+                {
+                    wall.AddAttachment(roof);
+                }
+                catch
+                {
+                    TaskDialog.Show("Message", "Failed to attach walls!");
+                }
+            }
         }
     }
 }

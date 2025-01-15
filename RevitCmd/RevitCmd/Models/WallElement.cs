@@ -15,14 +15,18 @@ namespace RevitCmd
             TaskDialog.Show("Wall", "drawing wall element");
 
             var type = document.QuOfType<WallType>()
-                .First();
+                .FirstOrDefault(_ => _.Name == "Ziegel+WD hart 300+160");
+
             var level = document.QuOfType<Level>()
                 .First();
 
             var pos = Position.ToXYZ();
+
+
             var dim = Shape.ToXYZ();
+            pos = new XYZ(pos.X, pos.Y + dim.Y / 2, pos.Z);
             var line = pos.NewBoundLine(
-                pos + new XYZ(dim.X, dim.Y / 2, 0));
+                pos + new XYZ(dim.X, 0, 0));
 
             var wall = Wall.Create(document, line,
                 type.Id, level.Id, dim.Z,
