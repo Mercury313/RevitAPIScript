@@ -71,5 +71,24 @@ namespace RevitCmd
                 }
             }
         }
+
+        public static Autodesk.Revit.DB.Dimension CreateDimension(this Document document, Edge edge0, Edge edge1, Line? line, double offset)
+        {
+            ReferenceArray referenceArray = new ReferenceArray();
+
+            referenceArray.Append(edge0.Reference);
+
+            referenceArray.Append(edge1.Reference);
+
+
+            var offSetLine = line.CreateOffset(UnitUtils.ConvertToInternalUnits(offset, UnitTypeId.Millimeters), -XYZ.BasisZ) as Line;
+
+            // Create a dimension between start and end points of the wall
+            return document.Create.NewDimension(
+                   document.ActiveView,
+                   offSetLine,
+                   referenceArray);
+
+        }
     }
 }
