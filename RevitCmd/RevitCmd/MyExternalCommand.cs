@@ -7,14 +7,16 @@ namespace RevitCmd
     [Transaction(TransactionMode.Manual)]
     public class MyExternalCommand : IExternalCommand
     {
+        public static UIApplication Application { get; private set; }
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             var uiDoc = commandData.Application.ActiveUIDocument;
+            Application = commandData.Application;
             TaskDialog.Show($"Hi {Environment.UserName}", $"You are here: {uiDoc.Document.PathName} {uiDoc.ActiveView}");
 
             try
             {
-                uiDoc.Document.Transaction(RunProgram);
+                RunProgram(uiDoc.Document);
             }
             catch (Exception e)
             {

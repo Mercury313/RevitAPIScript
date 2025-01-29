@@ -5,20 +5,24 @@ namespace RevitCmd
 {
     public class RoofElement : _Element
     {
-        public RoofElement(IVector position, IVector direction, IShape shape)
+        string roofType;
+        string roofLevel = "Ebene 0";
+        public RoofElement(IVector position, IVector direction, IShape shape, string roofType = "Ziegeldach 360", string roofLevel = "Ebene 1")
             : base(position, direction, shape)
         {
+            this.roofType = roofType;
+            this.roofLevel = roofLevel;
         }
 
         public override void Draw(Document document)
         {
-            TaskDialog.Show("Roof", "drawing roof element");
+            // TaskDialog.Show("Roof", "drawing roof element");
 
             var type = document.QuOfType<RoofType>()
-                .FirstOrDefault(_ => _.Name == "Ziegeldach 360");
+                .FirstOrDefault(_ => _.Name == roofType);
 
             var level = document.QuOfType<Level>()
-                .FirstOrDefault(_ => _.Name == "Ebene 2");
+                .FirstOrDefault(_ => _.Name == roofLevel);
 
             var profile = new CurveArray();
             //todo
@@ -54,7 +58,7 @@ namespace RevitCmd
             roof.EaveCuts = EaveCutterType.TwoCutSquare;
 
 
-            TaskDialog.Show("Attaching Walls", "Test");
+            // TaskDialog.Show("Attaching Walls", "Test");
             var walls = document.QuOfType<Wall>();
 
             foreach (var wall in walls)
