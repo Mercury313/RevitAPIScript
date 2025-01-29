@@ -39,7 +39,26 @@ namespace RevitCmd
             return wall;
         }
 
-        
+        public static IEnumerable<T> QuJoinedAt<T>(this Wall element, int end = 0)
+            where T : Element
+        {
+            if (element.Location is not LocationCurve location)
+                return null;
+
+            return location.QuJoinedAt<T>(end)
+                .Where(e => e.Id != element.Id);
+        }
+        public static IEnumerable<(IEnumerable<T> start, IEnumerable<T> end)> QuJoined<T>(this Wall element)
+            where T : Element
+        {
+            if (element.Location is not LocationCurve location)
+                return null;
+
+            return location.QuJoined<T>()
+                .Select(e => (
+                e.start.Where(e => e.Id != element.Id),
+                e.end.Where(e => e.Id != element.Id)));
+        }
 
     }
 }
