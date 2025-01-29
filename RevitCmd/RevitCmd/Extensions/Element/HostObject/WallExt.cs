@@ -1,12 +1,11 @@
 ﻿using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Architecture;
 
 namespace RevitCmd
 {
     public static class WallExt
     {
-        
-        public static Wall AddAttachment(this Wall wall, RoofBase roof ,AttachmentLocation AttachmentLocation = AttachmentLocation.Top)
+
+        public static Wall AddAttachment(this Wall wall, RoofBase roof, AttachmentLocation AttachmentLocation = AttachmentLocation.Top)
         {
             wall.AddAttachment(roof.Id, AttachmentLocation);
 
@@ -20,7 +19,7 @@ namespace RevitCmd
 
             return wall;
         }
-        public static Wall AddAttachment(this Wall wall, Ceiling ceiling , AttachmentLocation AttachmentLocation = AttachmentLocation.Top)
+        public static Wall AddAttachment(this Wall wall, Ceiling ceiling, AttachmentLocation AttachmentLocation = AttachmentLocation.Top)
         {
             wall.AddAttachment<Ceiling>(ceiling, AttachmentLocation);
 
