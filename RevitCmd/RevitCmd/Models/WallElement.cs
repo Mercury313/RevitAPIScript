@@ -1,7 +1,5 @@
 ﻿
 using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
 
 namespace RevitCmd
 {
@@ -24,7 +22,7 @@ namespace RevitCmd
                 .First(_ => _.Name == wallType);
 
             var level = document.QuOfType<Level>()
-                .First(_=>_.Name == wallLevel);
+                .First(_ => _.Name == wallLevel);
 
             var pos = Position.ToXYZ();
 
@@ -34,21 +32,12 @@ namespace RevitCmd
 
             pos = new XYZ(pos.X, pos.Y + dim.Y / 2, pos.Z);
 
-            var line = pos.NewBoundLine(new XYZ(pos.X + dir.X, pos.Y + dir.Y, pos.Z + dir.Z)*dim.X);
-                
+            var line = pos.NewBoundLine(new XYZ(pos.X + dir.X, pos.Y + dir.Y, pos.Z + dir.Z) * dim.X);
+
 
             var wall = Wall.Create(document, line,
                 type.Id, level.Id, dim.Z,
                 0, false, false);
-
-
-            //var refArray = new ReferenceArray();
-
-
-            //var wallRef = new Reference(wall);
-
-            //refArray.Append(wallRef);
-            //document.Create.NewDimension(document.ActiveView, line, refArray);
         }
     }
 }

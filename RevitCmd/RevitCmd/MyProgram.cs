@@ -11,18 +11,23 @@ namespace RevitCmd
 
             //var model = JsonConvert.DeserializeObject<IModel>(json);
 
+
+            var model = new Model(new List<IElement>
+                {
+                    //todo
+                    new WallElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = 1, Y =0, Z= 0 }, new Dimension{ X= 10000, Y = 500, Z = 3000 }),
+                    // new WallElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = -1, Y =0, Z= 0 }, new Dimension{ X= 500, Y = 5000, Z = 3000 }),
+                    //new RoofElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = 1, Y =0, Z= 0 }, new Dimension{ X= 10000, Y = 5000, Z = 2000 })
+                });
+
             document.Transaction(_ =>
             {
-                var model = new Model(new List<IElement>
-            {
-                //todo
-                new WallElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = 1, Y =0, Z= 0 }, new Dimension{ X= 10000, Y = 500, Z = 3000 }),
-                // new WallElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = -1, Y =0, Z= 0 }, new Dimension{ X= 500, Y = 5000, Z = 3000 }),
-                //new RoofElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = 1, Y =0, Z= 0 }, new Dimension{ X= 10000, Y = 5000, Z = 2000 })
-            });
-
                 model.Draw(document);
             });
+
+            var json = model.SerializeJson();
+
+            var model2 = json.DeserializeJson<ModelDtO>();
 
             document.Transaction(_ =>
             {
@@ -56,7 +61,9 @@ namespace RevitCmd
 
             });
             //todo: attach walls to roof!
-            // Done!
+            // Done! Great!
+
+
 
         }
 
