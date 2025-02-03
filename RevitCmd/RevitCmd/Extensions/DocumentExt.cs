@@ -81,7 +81,7 @@ namespace RevitCmd
             referenceArray.Append(edge1.Reference);
 
 
-            var offSetLine = line.CreateOffset(UnitUtils.ConvertToInternalUnits(offset, UnitTypeId.Millimeters), -XYZ.BasisZ) as Line;
+            var offSetLine = line.CreateOffset(UnitUtils.ConvertToInternalUnits(offset, UnitTypeId.Millimeters), XYZ.BasisZ) as Line;
 
             // Create a dimension between start and end points of the wall
             return document.Create.NewDimension(
