@@ -11,14 +11,12 @@ namespace RevitCmd
 
 
 
-            document.Transaction(_ =>
-            {
-                var model = new Model(new List<IElement>
+            var model = new Model(new List<IElement>
                 {
                     //todo
-                    // new WallElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = 1, Y =0, Z= 0 }, new Dimension{ X= 10000, Y = 500, Z = 3000 }),
+                    new WallElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = 1, Y =0, Z= 0 }, new Dimension{ X= 10000, Y = 500, Z = 3000 }),
                     // new WallElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = -1, Y =0, Z= 0 }, new Dimension{ X= 500, Y = 5000, Z = 3000 }),
-                    // new RoofElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = 1, Y =0, Z= 0 }, new Dimension{ X= 10000, Y = 5000, Z = 2000 })
+                    //new RoofElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = 1, Y =0, Z= 0 }, new Dimension{ X= 10000, Y = 5000, Z = 2000 })
                 });
 
                 //var json = model.SerializeJson();
@@ -31,8 +29,14 @@ namespace RevitCmd
                 //File.WriteAllText(file.FullName, json);
                 //var modelFromjson = json.DeserializeJson<Model>();
 
+            document.Transaction(_ =>
+            {
                 model.Draw(document);
             });
+
+            var json = model.SerializeJson();
+
+            var model2 = json.DeserializeJson<ModelDtO>();
 
             document.Transaction(_ =>
             {

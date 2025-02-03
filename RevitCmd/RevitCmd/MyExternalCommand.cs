@@ -12,7 +12,6 @@ namespace RevitCmd
         {
             var uiDoc = commandData.Application.ActiveUIDocument;
             Application = commandData.Application;
-            TaskDialog.Show($"Hi {Environment.UserName}", $"You are here: {uiDoc.Document.PathName} {uiDoc.ActiveView}");
 
             try
             {

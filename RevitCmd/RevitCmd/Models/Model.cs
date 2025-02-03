@@ -7,6 +7,7 @@ namespace RevitCmd
     public class Model : IModel
     {
         public IEnumerable<IElement> Elements { get; private set; }
+
         public Model(IEnumerable<IElement> elements)
         {
             this.Elements = elements;
