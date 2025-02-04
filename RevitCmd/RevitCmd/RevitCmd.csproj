@@ -12,4 +12,8 @@
     <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.3.0" />
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="mkdir &quot;C:\Debug\$(SolutionName)&quot;&#xD;&#xA; copy &quot;$(SolutionDir)Debug\DebugProject.rvt&quot; &quot;C:\Debug\$(SolutionName)\DebugProject.rvt&quot;" />
+  </Target>
+
 </Project>
