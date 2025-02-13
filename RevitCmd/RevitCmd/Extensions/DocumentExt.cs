@@ -72,13 +72,13 @@ namespace RevitCmd
             }
         }
 
-        public static Autodesk.Revit.DB.Dimension CreateDimension(this Document document, Edge edge0, Edge edge1, Line? line, double offset)
+        public static Autodesk.Revit.DB.Dimension CreateDimension(this Document document, Reference ref1, Reference ref2, Line? line, double offset)
         {
             ReferenceArray referenceArray = new ReferenceArray();
 
-            referenceArray.Append(edge0.Reference);
+            referenceArray.Append(ref1);
 
-            referenceArray.Append(edge1.Reference);
+            referenceArray.Append(ref2);
 
 
             var offSetLine = line.CreateOffset(UnitUtils.ConvertToInternalUnits(offset, UnitTypeId.Millimeters), XYZ.BasisZ) as Line;
@@ -90,5 +90,6 @@ namespace RevitCmd
                    referenceArray);
 
         }
+
     }
 }
