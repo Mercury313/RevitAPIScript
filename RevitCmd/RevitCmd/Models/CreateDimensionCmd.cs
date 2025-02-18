@@ -2,10 +2,10 @@
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
-namespace RevitCmd
+namespace RevitCmd.Models
 {
     [Transaction(TransactionMode.Manual)]
-    public class MyExternalCommand : IExternalCommand
+    public class CreateDimensionCmd : IExternalCommand
     {
         public static UIApplication Application { get; private set; }
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
@@ -26,7 +26,7 @@ namespace RevitCmd
         }
         public static void RunProgram(Document document)
         {
-            MyProgram.DoStuff(document);
+            DimensionProgram.Run(document);
 
         }
     }
