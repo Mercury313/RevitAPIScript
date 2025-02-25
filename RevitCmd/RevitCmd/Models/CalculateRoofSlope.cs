@@ -25,11 +25,21 @@ namespace RevitCmd.Models
                 foreach (IfcRoof roof in roofs)
                 {
                     var roofSlopes = new List<XbimVector3D>();
-                    var isDecomposedBy = roof.IsDecomposedBy as IfcRelAggregates;
-                    var relatedObjects = isDecomposedBy.RelatedObjects;
+                    Console.WriteLine(roof.ToString());
+                    var isDecomposedBy = roof.IsDecomposedBy.First() as IfcRelAggregates;
 
-                    foreach (IfcElementAssembly roofSide in relatedObjects)
+                    var relatedObjectsNumber = isDecomposedBy.RelatedObjects.Count;
+                    var relatedObjects = isDecomposedBy.RelatedObjects[0] as IfcElementAssembly;
+                    Console.WriteLine(relatedObjects.ToString());
+                    relatedObjectsNumber = relatedObjectsNumber - 1;
+                    while (relatedObjectsNumber >= 0)
                     {
+                        var roofSide = isDecomposedBy.RelatedObjects[relatedObjectsNumber] as IfcElementAssembly;
+                        relatedObjectsNumber = relatedObjectsNumber - 1;
+                        if (roofSide == null)
+                        {
+                            continue;
+                        }
                         var objectPlacement = roofSide.ObjectPlacement as IfcLocalPlacement;
                         var relativePlacement = objectPlacement.RelativePlacement as IfcAxis2Placement3D;
                         var axis = relativePlacement.Axis;
@@ -44,6 +54,7 @@ namespace RevitCmd.Models
 
                         var slopeVector = new XbimVector3D(sVectorX, sVectorY, sVectorZ);
                         roofSlopes.Add(slopeVector);
+
                     }
                     allRoofSlopes.Add(roof, roofSlopes);
                 }
