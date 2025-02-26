@@ -16,6 +16,7 @@ namespace RevitCmd
 
         public override void Draw(Document document)
         {
+
             // TaskDialog.Show("Roof", "drawing roof element");
 
             var type = document.QuOfType<RoofType>()
@@ -23,6 +24,11 @@ namespace RevitCmd
 
             var level = document.QuOfType<Level>()
                 .FirstOrDefault(_ => _.Name == roofLevel);
+
+            if (Shape is RoofShape roofShape)
+            {
+                //draw roof
+            }
 
             var profile = new CurveArray();
             //todo
