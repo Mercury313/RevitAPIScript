@@ -7,7 +7,15 @@
 	  <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 	  <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
 	  <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
   </PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<OutputPath>C:\ProgramData\Autodesk\Revit\Addins\2025\RevitCmd\Debug</OutputPath>
+		<DebugType>full</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+		<CopyDebugSymbolFilesFromPackages>true</CopyDebugSymbolFilesFromPackages>
+	</PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -16,5 +24,9 @@
     <PackageReference Include="Xbim.Essentials" Version="6.0.493" />
     <PackageReference Include="Xbim.Geometry" Version="5.1.796" />
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="mkdir &quot;C:\Debug\$(SolutionName)&quot;&#xD;&#xA;copy &quot;$(SolutionDir)Debug\DebugProject.rvt&quot; &quot;C:\Debug\$(SolutionName)\DebugProject.rvt&quot;&#xD;&#xA;copy &quot;$(SolutionDir)Debug\MyAddin.addin&quot; &quot;$(OutDir)..\..&quot;" />
+  </Target>
 
 </Project>
