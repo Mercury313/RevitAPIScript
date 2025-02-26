@@ -1,0 +1,10 @@
+<RevitAddIns>
+	<AddIn Type="Application">
+		<Name>MyAddin</Name>
+		<Assembly>RevitCmd\Debug\RevitCmd.dll</Assembly>
+		<FullClassName>RevitCmd.MyExternalApplication</FullClassName>
+		<AddInId>5777aec8-3c7c-4ae1-8970-78db0a14252d</AddInId>
+		<VendorId>SSeelos</VendorId>
+		<VendorDescription>Sebastian Seelos, Sebastina.Seelos@gmx.de</VendorDescription>
+	</AddIn>
+</RevitAddIns>

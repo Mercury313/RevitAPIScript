@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="mkdir &quot;C:\Debug\$(SolutionName)&quot;&#xD;&#xA;copy &quot;$(SolutionDir)Debug\DebugProject.rvt&quot; &quot;C:\Debug\$(SolutionName)\DebugProject.rvt&quot;&#xD;&#xA;copy &quot;$(SolutionDir)Debug\MyAddin.addin&quot; &quot;$(OutDir)..\..&quot;" />
+    <Exec Command="mkdir &quot;C:\Debug\$(SolutionName)&quot;&#xD;&#xA;copy &quot;$(SolutionDir)Resources\DebugProject.rvt&quot; &quot;C:\Debug\$(SolutionName)\DebugProject.rvt&quot;&#xD;&#xA;copy &quot;$(SolutionDir)Resources\MyAddin.addin&quot; &quot;$(OutDir)..\..&quot;" />
   </Target>
 
 </Project>
