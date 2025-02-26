@@ -4,6 +4,9 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+	  <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+	  <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
   </PropertyGroup>
@@ -16,8 +19,10 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.3.0" />
-    <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.3.0" />
+    <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.4.0" />
+    <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.4.0" />
+    <PackageReference Include="Xbim.Essentials" Version="6.0.493" />
+    <PackageReference Include="Xbim.Geometry" Version="5.1.796" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

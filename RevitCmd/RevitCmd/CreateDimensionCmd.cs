@@ -1,8 +1,9 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using RevitCmd.Models;
 
-namespace RevitCmd.Models
+namespace RevitCmd
 {
     [Transaction(TransactionMode.Manual)]
     public class CreateDimensionCmd : IExternalCommand
