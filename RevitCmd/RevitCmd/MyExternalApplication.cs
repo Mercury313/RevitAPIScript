@@ -14,7 +14,7 @@ namespace RevitCmd
 
             var pulldownBtn = addinPanel.AddItem(new PulldownButtonData("MyButton", "My Command")) as PulldownButton;
             pulldownBtn.AddPushButton<MyExternalCommand>();
-
+            pulldownBtn.AddPushButton<CreateRooffromIfcCmd>();
             return Result.Succeeded;
         }
         public Result OnShutdown(UIControlledApplication application)

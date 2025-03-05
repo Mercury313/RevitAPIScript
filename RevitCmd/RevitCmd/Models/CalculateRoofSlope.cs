@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.UI;
+using System.Diagnostics;
 using Xbim.Common.Geometry;
 using Xbim.Ifc;
 using Xbim.Ifc2x3.GeometricConstraintResource;
@@ -11,11 +12,8 @@ namespace RevitCmd.Models
 {
     public static class CalculateRoofSlopes
     {
-        public static Dictionary<IfcRoof, List<XbimVector3D>> Run(string fullpath)
+        public static Dictionary<IfcRoof, List<XbimVector3D>> Run(IfcStore model)
         {
-            fullpath = @"C:\Users\FRMI\source\repos\IFCBaukasten\IFCBaukasten\IFC-Datei\26905_angebot_NR126 1.ifc";
-            fullpath = Path.GetFullPath(fullpath);
-            using var model = IfcStore.Open(fullpath);
             var roofs = model.Instances.OfType<IfcRoof>();
             var allRoofSlopes = new Dictionary<IfcRoof, List<XbimVector3D>>();
 
@@ -25,12 +23,12 @@ namespace RevitCmd.Models
                 foreach (IfcRoof roof in roofs)
                 {
                     var roofSlopes = new List<XbimVector3D>();
-                    Console.WriteLine(roof.ToString());
+
                     var isDecomposedBy = roof.IsDecomposedBy.First() as IfcRelAggregates;
 
                     var relatedObjectsNumber = isDecomposedBy.RelatedObjects.Count;
                     var relatedObjects = isDecomposedBy.RelatedObjects[0] as IfcElementAssembly;
-                    Console.WriteLine(relatedObjects.ToString());
+
                     relatedObjectsNumber = relatedObjectsNumber - 1;
                     while (relatedObjectsNumber >= 0)
                     {
@@ -48,11 +46,12 @@ namespace RevitCmd.Models
                         var aVector = new XbimVector3D(axis.X, axis.Y, axis.Z);
                         var dVector = new XbimVector3D(refDirection.X, refDirection.Y, refDirection.Z);
 
-                        double sVectorX = aVector.Y * dVector.Z - aVector.Z - dVector.Y;
-                        double sVectorY = aVector.Z * dVector.X - aVector.X - dVector.Z;
-                        double sVectorZ = aVector.X * dVector.Y - aVector.Y - dVector.X;
+                        double sVectorX = (aVector.Y * dVector.Z) - (aVector.Z * dVector.Y);
+                        double sVectorY = (aVector.Z * dVector.X) - (aVector.X * dVector.Z);
+                        double sVectorZ = (aVector.X * dVector.Y) - (aVector.Y * dVector.X);
 
                         var slopeVector = new XbimVector3D(sVectorX, sVectorY, sVectorZ);
+                        Debug.WriteLine(slopeVector);
                         roofSlopes.Add(slopeVector);
 
                     }

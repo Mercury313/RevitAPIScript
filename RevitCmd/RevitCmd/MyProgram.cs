@@ -14,7 +14,7 @@ namespace RevitCmd
                 {
                     //todo
                     new WallElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = 1, Y =0, Z= 0 }, new Dimension{ X= 10000, Y = 500, Z = 3000 }),
-                    // new WallElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = -1, Y =0, Z= 0 }, new Dimension{ X= 500, Y = 5000, Z = 3000 }),
+                    new WallElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = -1, Y =0, Z= 0 }, new Dimension{ X= 500, Y = 5000, Z = 3000 }),
                     new RoofElement(new Vector{ X= 0, Y=0,Z=0 }, new Vector{X = 1, Y =0, Z= 0 }, new RoofShape{ X= 10000, Y = 5000, Z = 2000, AngleA = 30, AngleB = 20 })
                 });
 
