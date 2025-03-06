@@ -21,6 +21,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.4.0" />
     <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.4.0" />
+    <PackageReference Include="Serilog" Version="4.2.0" />
     <PackageReference Include="Xbim.Essentials" Version="6.0.493" />
     <PackageReference Include="Xbim.Geometry" Version="5.1.796" />
   </ItemGroup>

@@ -1,8 +1,8 @@
-﻿using Autodesk.Revit.Attributes;
+﻿using System.Diagnostics;
+using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using RevitCmd.Models;
-using System.Diagnostics;
 using Xbim.Common.Geometry;
 using Xbim.Ifc;
 using Xbim.Ifc2x3.GeometricConstraintResource;
@@ -64,6 +64,10 @@ namespace RevitCmd
                 var items = representationRepresentations.Items.First() as IfcExtrudedAreaSolid;
                 var sweptArea = items.SweptArea as IfcRectangleProfileDef;
                 double xDim = sweptArea.XDim;
+
+
+
+
                 xDim = UnitUtils.ConvertToInternalUnits(xDim, UnitTypeId.Millimeters);
                 Debug.WriteLine(xDim);
                 double yDim = entry.Value[0].Y;

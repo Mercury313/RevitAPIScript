@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.UI;
+using Hoermann.Revit;
 
 namespace RevitCmd
 {
@@ -15,6 +16,7 @@ namespace RevitCmd
             var pulldownBtn = addinPanel.AddItem(new PulldownButtonData("MyButton", "My Command")) as PulldownButton;
             pulldownBtn.AddPushButton<MyExternalCommand>();
             pulldownBtn.AddPushButton<CreateRooffromIfcCmd>();
+            pulldownBtn.AddPushButton<BeamConverter>();
             return Result.Succeeded;
         }
         public Result OnShutdown(UIControlledApplication application)
