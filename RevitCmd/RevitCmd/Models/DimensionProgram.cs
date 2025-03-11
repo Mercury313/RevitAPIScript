@@ -1,5 +1,5 @@
-﻿using Autodesk.Revit.DB;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using Autodesk.Revit.DB;
 
 namespace RevitCmd.Models
 {
@@ -33,7 +33,7 @@ namespace RevitCmd.Models
                         .SelectMany(o => o.OfType<Edge>())
                         .OrderBy(o => ((Edge)o).ApproximateLength);
 
-                    (IEnumerable<Wall> start, IEnumerable<Wall> end) endingConnections = wall.QuJoined<Wall>().First();
+                    (IEnumerable<Wall> start, IEnumerable<Wall> end) endingConnections = wall.QuJoined<Wall>().First(); // endpunkte Wand
 
                     var startCon = endingConnections.start;
                     var startCount = startCon.Count();
