@@ -18,6 +18,7 @@ namespace RevitCmd.Models
             var allRoofSlopes = new Dictionary<IfcRoof, List<XbimVector3D>>();
 
 
+
             try
             {
                 foreach (IfcRoof roof in roofs)

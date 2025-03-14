@@ -24,7 +24,7 @@ namespace RevitCmd
         {
             var uiDoc = commandData.Application.ActiveUIDocument;
             Application = commandData.Application;
-            string fullPath = @"C:\Users\FRMI\source\repos\IFCBaukasten\IFCBaukasten\IFC-Datei\26905_angebot_NR126 1.ifc";
+            string fullPath = @"C:\Users\FRMI\source\repos\IFCBaukasten\IFCBaukasten\IFC-Datei\2451337_angebot_NR18027.ifc";
             string roofLevel = "Ebene 1";
             string roofType = "Ziegeldach 360";
 
@@ -65,10 +65,10 @@ namespace RevitCmd
                 var sweptArea = items.SweptArea as IfcRectangleProfileDef;
                 double xDim = sweptArea.XDim;
                 xDim = UnitUtils.ConvertToInternalUnits(xDim, UnitTypeId.Millimeters);
-                Debug.WriteLine(xDim);
-                double yDim = entry.Value[0].Y;
+                Debug.WriteLine("xDim: " + xDim);
+                double yDim = sweptArea.YDim;
                 yDim = UnitUtils.ConvertToInternalUnits(yDim, UnitTypeId.Millimeters);
-                Debug.WriteLine(yDim);
+                Debug.WriteLine("yDim: " + yDim);
 
                 var profile = new CurveArray();
 
@@ -116,12 +116,13 @@ namespace RevitCmd
                     if (footPrintVector.IsAlmostEqualTo(posRefDirectionVector) == true)
                     {
                         var slopeVector = Vectors[count];
-                        Debug.WriteLine(slopeVector);
-                        var slabSlope = slopeVector.Y / slopeVector.X;
-                        Debug.WriteLine(slabSlope);
+                        //Debug.WriteLine(slopeVector);
+                        double horizontalLength = Math.Sqrt(slopeVector.X * slopeVector.X + slopeVector.Y * slopeVector.Y);
+                        double slope = slopeVector.Z / horizontalLength;
+                        Debug.WriteLine("Steigung A: " + slope);
                         document.Transaction(_ =>
                         {
-                            roof.SetSlope(line, slabSlope);
+                            roof.SetSlope(line, -slope);
                         });
                         count += 1;
                         continue;
@@ -129,15 +130,23 @@ namespace RevitCmd
                     if (footPrintVector.IsAlmostEqualTo(negRefDirectionVector) == true)
                     {
                         var slopeVector = Vectors[count];
-                        Debug.WriteLine(slopeVector);
-                        var slabSlope = slopeVector.Y / slopeVector.X;
-                        Debug.WriteLine(slabSlope);
+                        //Debug.WriteLine(slopeVector);
+                        double horizontalLength = Math.Sqrt(slopeVector.X * slopeVector.X + slopeVector.Y * slopeVector.Y);
+                        double slope = slopeVector.Z / horizontalLength;
+                        Debug.WriteLine("Steigung B: " + slope);
                         document.Transaction(_ =>
                         {
-                            roof.SetSlope(line, slabSlope);
+                            roof.SetSlope(line, slope);
                         });
                         count += 1;
                         continue;
+                    }
+                    else
+                    {
+                        document.Transaction(_ =>
+                        {
+                            roof.SetSlope(line, 0);
+                        });
                     }
                 }
                 // roof.EaveCuts = EaveCutterType.TwoCutSquare; // Zum Dachkanten erstellen
